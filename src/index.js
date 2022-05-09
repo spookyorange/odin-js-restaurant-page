@@ -1,35 +1,71 @@
-import image from './brick-wall-1834784_1920.jpg'
+import { buildIndex, returnIndex } from './indexContent'
+import { buildMenu, returnMenu } from './menu'
+import { buildContact, returnContact } from './contact'
+
+navbar = document.querySelector("#navbar");
 
 content = document.querySelector("#content");
 
-function makeHeader() {
-  const header = document.createElement('header');
-  const headerHeader = document.createElement('h1');
-  header.appendChild(headerHeader);
-  headerHeader.textContent = 'My Restaurant';
-  content.append(header);
+buildMenu();
+buildContact();
 
-  return headerHeader;
-}
+content.appendChild(buildIndex());
 
-function addImage () {
-  const img = new Image();
-  img.src = image;
-  img.width = 800;
+const navbarGenerator = (() => {
+  const generateHeads = () => {
+    const list = document.createElement('ul');
+    list.id = 'navbarList'
+    const index = document.createElement('li');
+    const menu = document.createElement('li');
+    const contact = document.createElement('li');
+    
+    index.textContent = 'index';
+    menu.textContent = 'menu';
+    contact.textContent = 'contact';
 
-  return img;
-}
+    list.appendChild(index);
+    list.appendChild(menu);
+    list.appendChild(contact);
 
-function addText() {
-  const main = document.createElement('main');
-  const paragraph = document.createElement('p');
-  paragraph.textContent = "My Restaurant is so nice and everyone loves it except some person who doesn't know who they are or who doesn't know their place. I will burn em to the ground";
+    arrangeButton(index);
+    arrangeButton(menu);
+    arrangeButton(contact);
 
-  main.appendChild(paragraph);
+    return list;
+  };
 
-  return main;
-}
+  const arrangeButton = (button) => {
+    button.addEventListener('click', () => {
+      if (button.textContent == 'index') {
+        wipeContent(content);
+        content.appendChild(returnIndex())
+      }
+      else if (button.textContent == 'menu') {
+        wipeContent(content);
+        content.appendChild(returnMenu())
+      }
+      else if (button.textContent == 'contact') {
+        wipeContent(content);
+        content.appendChild(returnContact())
+      }
+    })
+  };
 
-content.appendChild(makeHeader());
-content.appendChild(addImage());
-content.appendChild(addText());
+  const wipeContent = (content) => {
+    while (content.lastChild) {
+      content.removeChild(content.lastChild)
+    }
+  }
+
+  const generateNavbar = () => {
+    return generateHeads()
+  };
+
+  return { generateNavbar };
+
+})()
+
+navbar.appendChild(navbarGenerator.generateNavbar());
+
+
+

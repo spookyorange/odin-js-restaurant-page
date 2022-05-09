@@ -1,0 +1,25 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+#menuList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#navbarList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+#contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
